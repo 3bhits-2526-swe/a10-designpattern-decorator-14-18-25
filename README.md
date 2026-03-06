@@ -109,3 +109,5 @@ Testet, ob mehrere Decorators kombiniert werden können.
 # Teil 5 - Playthrough Video (<100MB) 
 
 # Teil 6 - Vorbereitung einer Live Demo
+
+# Teil 7 - UML
