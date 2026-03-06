@@ -12,6 +12,7 @@ public class MoveBetweenPoints : MonoBehaviour
 
     [Header("Decorators")]
     [SerializeField] private bool changeColorOnBounce = true;
+    [SerializeField] private bool enableScaling = true;
 
     private IMovementBehaviour movementBehaviour;
     private SpriteRenderer spriteRenderer;
@@ -20,14 +21,20 @@ public class MoveBetweenPoints : MonoBehaviour
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
         IMovementBehaviour basic = new BasicMovement(transform, pointA, pointB, speed, reachDistance);
+        
+        // Apply ColorChangeDecorator if enabled
         if (changeColorOnBounce)
         {
-            movementBehaviour = new ColorChangeDecorator(basic, spriteRenderer);
+            basic = new ColorChangeDecorator(basic, spriteRenderer);
         }
-        else
+        
+        // Apply ScaleDecorator if enabled
+        if (enableScaling)
         {
-            movementBehaviour = basic;
+            basic = new ScaleDecorator(basic, transform);
         }
+        
+        movementBehaviour = basic;
     }
 
     private void Update()
