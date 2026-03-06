@@ -10,39 +10,35 @@ public class MoveBetweenPoints : MonoBehaviour
     [SerializeField] private float speed = 2f;
     [SerializeField] private float reachDistance = 0.05f;
 
-    [Header("Unschoenes Zusatzverhalten")]
+    [Header("Decorators")]
     [SerializeField] private bool changeColorOnBounce = true;
+    [SerializeField] private bool enableScaling = true;
 
-    private Transform currentTarget;
+    private IMovementBehaviour movementBehaviour;
     private SpriteRenderer spriteRenderer;
 
     private void Start()
     {
-        currentTarget = pointB;
         spriteRenderer = GetComponent<SpriteRenderer>();
+        IMovementBehaviour basic = new BasicMovement(transform, pointA, pointB, speed, reachDistance);
+        
+        // Apply ColorChangeDecorator if enabled
+        if (changeColorOnBounce)
+        {
+            basic = new ColorChangeDecorator(basic, spriteRenderer);
+        }
+        
+        // Apply ScaleDecorator if enabled
+        if (enableScaling)
+        {
+            basic = new ScaleDecorator(basic, transform);
+        }
+        
+        movementBehaviour = basic;
     }
 
     private void Update()
     {
-        Move();
-
-        if (Vector3.Distance(transform.position, currentTarget.position) <= reachDistance)
-        {
-            if (changeColorOnBounce && spriteRenderer != null)
-            {
-                spriteRenderer.color = Random.ColorHSV();
-            }
-
-            currentTarget = currentTarget == pointA ? pointB : pointA;
-        }
-    }
-
-    private void Move()
-    {
-        transform.position = Vector3.MoveTowards(
-            transform.position,
-            currentTarget.position,
-            speed * Time.deltaTime
-        );
+        movementBehaviour.UpdateMovement();
     }
 }
