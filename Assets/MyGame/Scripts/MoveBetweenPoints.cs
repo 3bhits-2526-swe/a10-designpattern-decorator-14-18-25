@@ -13,6 +13,8 @@ public class MoveBetweenPoints : MonoBehaviour
     [Header("Decorators")]
     [SerializeField] private bool changeColorOnBounce = true;
     [SerializeField] private bool enableScaling = true;
+    [SerializeField] private bool enableRotation = true;
+    [SerializeField] private float rotationSpeed = 180f;
 
     private IMovementBehaviour movementBehaviour;
     private SpriteRenderer spriteRenderer;
@@ -32,6 +34,12 @@ public class MoveBetweenPoints : MonoBehaviour
         if (enableScaling)
         {
             basic = new ScaleDecorator(basic, transform);
+        }
+        
+        // Apply RotateDecorator if enabled
+        if (enableRotation)
+        {
+            basic = new RotateDecorator(basic, transform, rotationSpeed);
         }
         
         movementBehaviour = basic;

@@ -1,19 +1,22 @@
 using UnityEngine;
 
-public class RotateDecorator : MovementDecorator
+public class RotateDecorator : IMovementBehaviour
 {
+    private IMovementBehaviour wrappedBehaviour;
+    private Transform transform;
     private float rotationSpeed;
 
-    public RotateDecorator(IMovement movement, float rotationSpeed) 
-        : base(movement)
+    public RotateDecorator(IMovementBehaviour behaviour, Transform transform, float rotationSpeed)
     {
+        this.wrappedBehaviour = behaviour;
+        this.transform = transform;
         this.rotationSpeed = rotationSpeed;
     }
 
-    public override void Move(Transform transform)
+    public void UpdateMovement()
     {
         // normale Bewegung ausführen
-        base.Move(transform);
+        wrappedBehaviour.UpdateMovement();
 
         // zusätzliche Rotation
         transform.Rotate(Vector3.forward * rotationSpeed * Time.deltaTime);
