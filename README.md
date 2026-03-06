@@ -1,3 +1,4 @@
+[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg)](https://classroom.github.com/a/ZXq9zVzz)
 # Decorator Pattern – Bewegtes Objekt erweitern
 
 ## Ausgangssituation
@@ -52,8 +53,11 @@ Am Ende werden mehrere Decorators **kombiniert**.
 Besprecht in eurer Gruppe und beantwortet hier direkt:
 
 1. Was ist das **Basisverhalten** des Programms?
+  Punkt bewegt sich von A nach B, immer wenn es bei einem Punkt angelangt ist, ändert es die Farbe
 2. Welches Verhalten gehört **nicht direkt** in die Basisklasse?
+  Die zusätzlichen Effekte wie Rotation, Glow, Spur etc.
 3. Warum wäre es problematisch, alle neuen Effekte direkt in derselben Klasse zu implementieren?
+  Klasse wird zu unübersichtlich und hätte zu viel Verantwortung. Debuggen wäre sehr erschwert.
 
 ---
 
@@ -108,3 +112,5 @@ Testet, ob mehrere Decorators kombiniert werden können.
 # Teil 5 - Playthrough Video (<100MB) 
 
 # Teil 6 - Vorbereitung einer Live Demo
+
+# Teil 7 - UML

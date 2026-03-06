@@ -1,0 +1,34 @@
+using UnityEngine;
+
+public class SpeedDecorator : MovementDecorator
+{
+    private float speedMultiplier;
+    private BasicMovement movement;
+
+    public SpeedDecorator(IMovable inner, float multiplier) : base(inner)
+    {
+        speedMultiplier = multiplier;
+
+        movement = inner as BasicMovement;
+
+        if (movement == null)
+        {
+            Debug.LogError("SpeedDecorator benötigt eine BasicMovement-Komponente!");
+        }
+    }
+
+    public override void Move()
+    {
+        if (movement != null)
+        {
+            movement.speed *= speedMultiplier;
+        }
+
+        base.Move();
+
+        if (movement != null)
+        {
+            movement.speed /= speedMultiplier;
+        }
+    }
+}
